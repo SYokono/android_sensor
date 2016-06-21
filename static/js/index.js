@@ -49,9 +49,9 @@ $(function(){
     var pos_gamma = [];
 
     var update = function(){
-        pos_alpha.push(alpha + 100);
-        pos_beta.push(beta + 100);
-        pos_gamma.push(gamma + 100);
+        pos_alpha.push(200 * alpha / 360);
+        pos_beta.push( 200 * beta / 180);
+        pos_gamma.push(200 * gamma / 180);
 
         if(pos_alpha.length > $("#graph_alpha").width()/10){ pos_alpha.shift(); }
         if(pos_beta.length  > $("#graph_beta").width()/10){  pos_beta.shift(); }
@@ -81,6 +81,5 @@ $(function(){
                    .attr("fill", "none")
                    .attr("opacity", 1);
     };
-
     setInterval(update, 100);
 });
