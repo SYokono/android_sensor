@@ -10,86 +10,21 @@
   </head>
   <body>
     <div id="dev_orient" class="dev_orient">
-      <div class="alpha"></div>
-      <div class="beta"></div>
-      <div class="gamma"></div>
+      <div class="alpha">
+          <span class="name">alpha : </span>
+          <span class="val"></span>
+      </div>
+      <div class="beta">
+          <span class="name">beta : </span>
+          <span class="val"></span></div>
+      <div class="gamma">
+          <span class="name">gamma : </span>
+          <span class="val"></span>
+      </div>
     </div>
-    <div id="result2"></div>
-    <div id="d3graph_x"></div>
-    <div id="d3graph_y"></div>
-    <div id="d3graph_z"></div>
-
-    <script type="text/javascript">
-        $(document).ready(function(){
-            stage_x = d3.select("#d3graph_x")
-                      .append("svg:svg")
-                      .attr("width", $("#d3graph_x").width())
-                      .attr("height", 200);
-
-            stage_y = d3.select("#d3graph_y")
-                      .append("svg:svg")
-                      .attr("width", $("#d3graph_y").width())
-                      .attr("height", 200);
-
-            stage_z = d3.select("#d3graph_z")
-                      .append("svg:svg")
-                      .attr("width", $("#d3graph_z").width())
-                      .attr("height", 200);
-
-            setInterval("update()", 100);
-        });
-
-        var colors = d3.scale.category10();
-        var d3Line = d3.svg.line()
-                       .x(function(d,i){return i * 10;})
-                       .y(function(d,i){return d;});
-
-        var points_x = new Array();
-        var points_y = new Array();
-        var points_z = new Array();
-
-        function update() {
-            points_x.push(Math.random() * 100 + 100);
-            points_y.push(Math.random() * 100 + 100);
-            points_z.push(Math.random() * 100 + 100);
-
-            if(points_x.length > $("#d3graph_x").width()/10) {
-                points_x.shift();
-            }
-
-            if(points_y.length > $("#d3graph_y").width()/10) {
-                points_y.shift();
-            }
-
-            if(points_z.length > $("#d3graph_z").width()/10) {
-                points_z.shift();
-            }
-
-            // 削除する
-            stage_x.selectAll("path").remove();
-            stage_y.selectAll("path").remove();
-            stage_z.selectAll("path").remove();
-
-            // 描画する
-            stage_x.append("path")
-                   .attr("d", d3Line(points_x))
-                   .attr("stroke", colors(0))
-                   .attr("fill", "none")
-                   .attr("opacity", 1);
-
-            stage_y.append("path")
-                   .attr("d", d3Line(points_y))
-                   .attr("stroke", colors(1))
-                   .attr("fill", "none")
-                   .attr("opacity", 1);
-
-            stage_z.append("path")
-                   .attr("d", d3Line(points_z))
-                   .attr("stroke", colors(2))
-                   .attr("fill", "none")
-                   .attr("opacity", 1);
-    }
-    </script>
+    <div id="graph_alpha"></div>
+    <div id="graph_beta"></div>
+    <div id="graph_gamma"></div>
     <script src="static/js/index.js" type="text/javascript"></script>
   </body>
 </html>
