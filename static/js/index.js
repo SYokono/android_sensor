@@ -14,14 +14,14 @@ $(function(){
     setOrientVal(alpha, beta, gamma);
 
     // ---- get compass data
-    if(window.DebiceOrientationEvent){
+//    if(window.DebiceOrientationEvent){
         window.addEventListener("deviceorientation",function(event){
             alpha = event.alpha;
             beta = event.beta;
             gamma = event.gamma;
             setOrientVal(alpha, beta, gamma);
-        }, false);
-    }
+        });
+ //   }
 
     // --- set graph
     var stage_alpha = d3.select("#graph_alpha")
