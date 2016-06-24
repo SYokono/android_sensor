@@ -6,6 +6,7 @@ $(function(){
     var slc_gAlpha = $("#graph_alpha");
     var slc_gBeta  = $("#graph_beta");
     var slc_gGamma = $("#graph_gamma");
+    var slc_gtest = $("#graph_test");
     var padding = {"x": 30, "y":30};
     var hasOrtEvent = false;
 
@@ -40,29 +41,37 @@ $(function(){
                         .attr("width", slc_gGamma.width())
                         .attr("height", 200);
 
+    var stage_gtest= d3.select("#graph_test")
+                        .append("svg:svg")
+                        .attr("width", slc_gtest.width())
+                        .attr("height", 200);
+
     var xScale = d3.scale.linear()
                    .domain([0, 100])
                    .range([padding.x, slc_gAlpha.width() - padding.x]);
 
     var yScale360 = d3.scale.linear()
                       .domain([0, 360])
-                      .range([padding.y, slc_gAlpha.height()]);
+                      .range([slc_gAlpha.height() - padding.y, padding.y]);
 
     var yScale90  = d3.scale.linear()
                       .domain([-90, 90])
-                      .range([slc_gAlpha.height(), padding.y]);
+                      .range([slc_gAlpha.height() - padding.y , padding.y]);
 
     var xAxis = d3.svg.axis()
                   .scale(xScale)
+                  .innerTickSize(-1 * (slc_gAlpha.height() -2 * padding.y) )
                   .orient("buttom");
 
     var yAxis360 = d3.svg.axis()
                      .scale(yScale360)
-                     .orient("left");
+                     .orient("left")
+                     .innerTickSize( -1 * (slc_gAlpha.width() - 2 * padding.x));
 
     var yAxis90  = d3.svg.axis()
                      .scale(yScale90)
-                     .orient("left");
+                     .orient("left")
+                     .innerTickSize( -1 * (slc_gAlpha.width() - 2 * padding.x));
 
 
     var colors = d3.scale.category10();
@@ -75,34 +84,45 @@ $(function(){
                      .y(function(d,i){return yScale90(d);});
     //--- 軸のセット
     stage_alpha.append("g")
-               .attr("class", "xasis")
+               .attr("class", "x axis")
                .attr("transform", "translate(0," + (slc_gAlpha.height() - padding.y) + " )")
                .call(xAxis);
 
     stage_alpha.append("g")
-               .attr("class", "yasis")
+               .attr("class", "y axis")
                .attr("transform", "translate(" + padding.y + ",0)")
                .call(yAxis360);
 
     stage_beta.append("g")
-              .attr("class", "xasis")
+              .attr("class", "x axis")
               .attr("transform", "translate(0," + (slc_gBeta.height() - padding.y) + " )")
               .call(xAxis);
 
     stage_beta.append("g")
-              .attr("class", "yasis")
+              .attr("class", "y axis")
               .attr("transform", "translate(" + padding.y + ",0)")
               .call(yAxis90);
 
     stage_gamma.append("g")
-               .attr("class", "xasis")
+               .attr("class", "x axis")
                .attr("transform", "translate(0," + (slc_gGamma.height() - padding.y)+ ")")
                .call(xAxis);
 
     stage_gamma.append("g")
-               .attr("class", "yasis")
+               .attr("class", "y axis")
                .attr("transform", "translate(" + padding.y + ",0)")
                .call(yAxis90);
+
+    stage_gtest.append("g")
+               .attr("class", "x axis")
+               .attr("transform", "translate(0," + (slc_gtest.height() - padding.y)+ ")")
+               .call(xAxis);
+
+    stage_gtest.append("g")
+               .attr("class", "y axis")
+               .attr("transform", "translate(" + padding.y + ",0)")
+               .call(yAxis90);
+
 
     var pos_alpha = [];
     var pos_beta  = [];
